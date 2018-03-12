@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <interviewLabel>GetSomeRecords {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>GetSomeRecords</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetRecords</name>
+        <label>GetRecords</label>
+        <locationX>138</locationX>
+        <locationY>142</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <filters>
+            <field>Name</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>A</stringValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputReference>Records</outputReference>
+        <queriedFields>Name</queriedFields>
+    </recordLookups>
+    <startElementReference>GetRecords</startElementReference>
+    <variables>
+        <name>Records</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+</Flow>

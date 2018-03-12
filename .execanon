@@ -1,0 +1,60 @@
+/**
+List<Account> accounts = [select Name, Id from Account];
+Map<String, Object> inputs = new Map<String, Object>();
+inputs.put('SomeRecords', accounts);
+Flow.Interview myFlow = new Flow.Interview.FilterAccounts(inputs);
+myFlow.start();
+List<Account> newAccounts = (List<Account>) myFlow.getVariableValue('FilteredAccounts');
+System.debug(newAccounts);
+**/
+/**
+List<Account> accounts = [select Name, Id from Account];
+FilterAccounts filter = new FilterAccounts();
+filter.filter(accounts);
+List<Account> newAccounts = filter.FilterAccounts;
+**/
+
+/**
+Map<String, Object> output = 
+    new FlowProcess().
+        named('AccountFilter').
+        with('SomeAccounts', accounts).
+        output('FilteredAccounts', List<Account>.class).
+        outputRequired('FilteredAccounts', List<Account>.class).
+        run();
+**/
+
+/**
+List<Account> filteredAccounts = (List<Account>)
+    new FlowProcess().
+        named('AccountFilter', FlowConfiguration__mdt.SObjectType, FlowConfiguration__mdt.FlowName__c ).
+        with('SomeAccounts', accounts).
+        returning('FilteredAccounts');
+**/
+
+/**
+System.debug(
+    new FlowProcess().
+        named('FilterAccounts', MyAppFlows__mdt.SObjectType, MyAppFlows__mdt.FlowName__c).
+        with('SomeRecords', [select Name, Id from Account]).
+        returning('FilteredAccounts'));
+**/
+
+/**
+Flow.Interview.FilterAccounts flow = 
+    new Flow.Interview.FilterAccounts(
+        new Map<String, Object> { 'SomeRecords' => [select Name, Id from Account]});
+flow.start();
+List<Account> accounts = flow.FilteredAccounts;
+System.debug(accounts);
+**/
+
+/**
+System.debug(
+    new FlowProcess().
+        named('FilterAccounts').
+        with('SomeRecords', [select Name, Id from Account]).
+        returning('FilteredAccounts'));
+**/
+
+System.debug(new FlowProcess().named('GetSomeRecords').returning('Records'));
