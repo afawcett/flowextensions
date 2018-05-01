@@ -7,7 +7,7 @@ Manage the execution and interfacing of runtime resolved Flows in Apex
 
 [![Deploy](https://deploy-to-sfdx.com/dist/assets/images/DeployToSFDX.svg)](https://deploy-to-sfdx.com)
 
-The FlowProcess class wraps the above Apex Flow API and allows you to manage the execution and interfacing of runtime resolved flows in Apex. It focuses on providing support for declaring inputs and outputs as well as integrating with Custom Metadata types as a means to allow admins to control which flows are invoked
+The FlowProcess class wraps the Apex Flow API and allows you to manage the execution and interfacing of runtime resolved flows in Apex. It focuses on providing support for declaring inputs and outputs as well as integrating with Custom Metadata types as a means to allow admins to control which flows are invoked
 
 ```
 List<Account> accounts = (List<Account>)
