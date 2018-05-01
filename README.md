@@ -27,4 +27,21 @@ List<Account> accounts = (List<Account>)
         returning('FilteredAccounts'));
 ```
 
+You can also mock Flow invocations during tests.
+
+```
+// Given 
+FlowProcessRunner mockRunner = 
+    (FlowProcessRunner) Test.createStub(FlowProcessRunner.class, new RunnerMock());          
+FlowProcess.setMock(mockRunner);
+        
+// When
+List<Account> accounts = (List<Account>) 
+    new FlowProcess().named('GetSomeRecords').returning('Records');
+            
+// Then
+System.assertEquals(1, accounts.size());
+System.assertEquals('MyAccount', accounts[0].Name);
+```
+
 You can read more about this library and Flows in general in this [blog](https://developer.salesforce.com/blogs/2018/04/adding-clicks-not-code-extensibility-to-your-apex-with-lightning-flow.html).
