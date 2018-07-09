@@ -77,37 +77,14 @@ public class FlowProcess {
     /**
      * Default runner used to create and execute Flows in memory
      **/
-    private static Runner runner = new Runner();
+    private static FlowProcessRunner runner = new FlowProcessRunner();
 
     /**
      * Enable the ability to mock Flow executions, by mocking the Runner class via Apex Stub API
      **/
     @TestVisible
-    private static void setMock(Runner mockRunner) {
+    private static void setMock(FlowProcessRunner mockRunner) {
         runner = mockRunner;
-    }
-
-    /**
-     * Class interacts with the Apex Flow API to invoke a flow, pass inputs and collect outputs
-     **/
-    public class Runner {
-
-        public Map<String, Object> run(Resolver resolver, Map<String, Object> inputs, Set<String> outputVarNames, Set<String> outputVarRequiredNames) {
-            String flowName = resolver.resolve();
-            Flow.Interview flow = Flow.Interview.createInterview(flowName, inputs);
-            flow.start();
-            Map<String, Object> outputVars = new Map<String, Object>();
-            for(String outputVar : outputVarNames) {
-                Object outputVarValue = flow.getVariableValue(outputVar);
-                if(outputVarValue!=null) {
-                    outputVars.put(outputVar, outputVarValue);
-                } else if(outputVarRequiredNames.contains(outputVar)) {
-                    throw new FlowProcessException('Output variable ' + outputVar + ' expected but not returned from Flow ' + flowName);
-                }                                
-            }
-            return outputVars;
-        }
-
     }
 
     /**
